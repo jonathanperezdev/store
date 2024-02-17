@@ -11,6 +11,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -21,15 +22,16 @@ public class JakartaValidatorHandler {
     //Injects the Jakarta Validation who validate annotations like @NotNull
     private final Validator validator;
 
-    public  <T> Mono<T> validateModel(T model){
-        Errors errors = new BeanPropertyBindingResult(model, model.getClass().getName());
-        String errorMsg;
+    public  <T> T validateModel(T model){
+        Errors errors = new BeanPropertyBindingResult(model, model.getClass().getSimpleName());
+        List<String> errorsMsg;
         validator.validate(model, errors);
         if (Objects.nonNull(errors) && !CollectionUtils.isEmpty(errors.getAllErrors())){
-            errorMsg = errors.getAllErrors().stream().map(this::getErrorOf).collect(Collectors.joining());
-            return Mono.error(new BadRequestException(errorMsg));
+            errorsMsg = errors.getAllErrors().stream().map(this::getErrorOf).collect(Collectors.toList());
+            throw new BadRequestException(errorsMsg);
         }
-        return Mono.just(model);
+
+        return model;
     }
 
     private String getErrorOf(ObjectError error){

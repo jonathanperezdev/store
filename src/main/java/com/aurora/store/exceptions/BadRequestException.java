@@ -1,8 +1,12 @@
 package com.aurora.store.exceptions;
 
-public class BadRequestException extends RuntimeException{
-    public BadRequestException(String cause){
-        super(cause);
-    }
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
+@RequiredArgsConstructor
+@Getter
+public class BadRequestException extends RuntimeException{
+    private final List<String> errors;
 }
