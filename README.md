@@ -2,7 +2,7 @@
 Application who explores the Reactive programing style
 
 # Architecture Diagram
-![Reactive_Store.jpg](./diagrams/FReactive_Store.jpg)
+![Reactive_Store.jpg](./diagrams/Reactive_Store.jpg)
 
 ## Tools
 - [x] SpringBoot
