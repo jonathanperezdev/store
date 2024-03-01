@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    function:
+      definition: purchaseConsumer
+    stream:
+      bindings:
+        productConsumer-in-0:
+          destination: account-purchase-topic
+      kafka:
+        binder:
+          brokers: localhost:29092
+  data:
+    mongodb:
+      host: localhost
+      port: 27070
+      database: accountDB
+      username: admin
+      password: admin
+      authentication-database: admin

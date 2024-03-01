@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    function:
+      definition: errorConsumer
+    stream:
+      bindings:
+        productProducer-out-0:
+          destination: product-topic
+        errorConsumer-in-0:
+          destination: error-topic
+      kafka:
+        binder:
+          brokers: localhost:29092
+  data:
+    mongodb:
+      host: localhost
+      port: 27070
+      database: orderDB
+      username: admin
+      password: admin
+      authentication-database: admin

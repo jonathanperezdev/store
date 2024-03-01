@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    function:
+      definition: productProcessor
+    stream:
+      bindings:
+        productProcessor-in-0:
+          destination: product-topic
+        productProcessor-out-0:
+          destination: account-purchase-topic
+        productProcessor-out-1:
+          destination: error-topic
+      kafka:
+        binder:
+          brokers: localhost:29092
+  data:
+    mongodb:
+      host: localhost
+      port: 27070
+      database: productDB
+      username: admin
+      password: admin
+      authentication-database: admin
